@@ -13,7 +13,8 @@ from cgitb import text
 reload(sys)
 sys.setdefaultencoding('utf-8')
 #打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('D:\\test\\mrbtest1.xls', formatting_info=True)
+# casefile = xlrd.open_workbook('D:\\test\\mrbtest1.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\mrbtest1.xls', formatting_info=True)
 #设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -143,7 +144,7 @@ try:
             driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/button/span').click()
         else:
             driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[3]/div/button[1]/span').click()
-    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()#/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/span
+    # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()#/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/span
     # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/span[1]').click()#/html/body/div[17]/div[2]/div/div/div[3]/div/button[2]
     # time.sleep(1)
     # key=table.cell(2,i).value
@@ -169,7 +170,7 @@ finally :
     ws.write(1,10, u'周楚奇')
     ws.write(1,11, datetime.now(), style1)
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-    wb.save('D:\\test\\mrbtest1.xls')
+    wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\mrbtest1.xls')
     #退出浏览器
-    # driver.quit()
+    driver.quit()
     print "Case--AmezMallUI_001_Login.py运行结束！！！)"
