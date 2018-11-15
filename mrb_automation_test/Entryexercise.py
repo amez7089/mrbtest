@@ -30,7 +30,7 @@ wb = copy(casefile)
 ws = wb.get_sheet(0)
 # 打开第一张表
 table = casefile.sheets()[0]
-print(u"****Case-rmbtest1_001_Login管理员登录--开始运行****")
+print(u"Enteryexercise.py运行结束--开始运行****")
 try:
     #失败标志
     errorFlag = 0
@@ -59,10 +59,10 @@ try:
     print text
     if (text == u"首页"):
         print u"登录成功！！"
-        ws.write(1, 9, 'Pass')
+        # ws.write(1, 9, 'Pass')
     else:
         print u"登录失败！！"
-        ws.write(1, 9, 'Failed', style2)
+        # ws.write(1, 9, 'Failed', style2)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[1]/ul/li[6]/div/span').click()
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[1]/ul/li[6]/ul/a[5]/li/span').click()
@@ -73,9 +73,9 @@ try:
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[2]/div/div/div/div/div').click()
     os.system("d:\\upfile.exe")
-    time.sleep(3)
+    time.sleep(2)
     driver.get_screenshot_as_file("E:\\tupian1.png")
-    time.sleep(3)
+    time.sleep(1)
     print("截图成功")
     driver.find_element_by_xpath(
         '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[12]/div/div/div/button/span').click()
@@ -86,7 +86,7 @@ try:
     m=2
     y=16
     Tunll=str(u'第一题')
-    while Tunll != None:
+    while Tunll != u'完':
         n = 1
         i = 1
         print i
@@ -138,14 +138,17 @@ try:
         j = int(j)
         j=j+1
         m=m+1
-        Tunll=table.cell(m,n).value
-        if Tunll!=None:
+        Tunll=table.cell(m,1).value
+        # Tunll=table.row(m)[1].value
+        print Tunll,m,
+        if Tunll!=u'完':
             # driver.find_element_by_class_name('ivu-btn ivu-btn-primary').click()
             driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/button/span').click()
         else:
-            driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[3]/div/button[1]/span').click()
-    # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()#/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/html/body/div[18]/div[2]/div/div/div[3]/div/button[2]/span
-    # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/span[1]').click()#/html/body/div[17]/div[2]/div/div/div[3]/div/button[2]
+            print Tunll
+            driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[3]/div/button[2]').click()
+    # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()
+    # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/span[1]').click()
     # time.sleep(1)
     # key=table.cell(2,i).value
     # print key
@@ -157,20 +160,24 @@ try:
     #     driver.find_element_by_xpath('/html/body/div[16]/ul[2]/li[3]').click()
     # else:driver.find_element_by_xpath('/html/body/div[16]/ul[2]/li[4]').click()
     # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/button/span').click()
-
+    time.sleep(2)
     errorFlag = 1
+    print errorFlag
 
 except Exception as e:
     print(e)
 
 finally :
     if(errorFlag == 0):
-        print (u"Case--AmezMallUI_001_Login已注册会员用户登录--结果：Failed!")
+        print (u"Enteryexercise.py运行结束--结果：Failed!")
         ws.write(1,9, 'Failed',style2)
+    else:
+        print (u"Enteryexercise.py运行结束--结果：pass!")
+        ws.write(1,9, 'pass')
     ws.write(1,10, u'周楚奇')
     ws.write(1,11, datetime.now(), style1)
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\mrbtest1.xls')
     #退出浏览器
     driver.quit()
-    print "Case--AmezMallUI_001_Login.py运行结束！！！)"
+    print "Enteryexercise.py运行结束！！！)"
