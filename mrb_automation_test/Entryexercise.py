@@ -217,5 +217,5 @@ finally :
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\mrbtest1.xls')
     #退出浏览器
-    # driver.quit()
+    driver.quit()
     print "Enteryexercise.py运行结束！！！)"
