@@ -1,4 +1,4 @@
-#coding=utf-8
+# -*- encoding: utf-8 -*-
 import xlrd,xlwt
 import time
 import os
@@ -69,7 +69,13 @@ try:
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[3]/div/button[2]/span').click()
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[1]/div/div[1]/input').send_keys(u"自动化课程")
+    import random_str
+    # reload(random_str)
+    # random_str.setdefaultencoding('utf-8')
+    # subject=random_str.generata_random_title()
+    # print subject
+    subject=u'自动化课程'
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[1]/div/div[1]/input').send_keys(subject)
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[2]/div/div/div/div/div').click()
     os.system("d:\\upfile.exe")
@@ -147,6 +153,7 @@ try:
         else:
             print Tunll
             driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[3]/div/button[2]').click()
+    #  *********
     # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()
     # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/span[1]').click()
     # time.sleep(1)
@@ -160,7 +167,38 @@ try:
     #     driver.find_element_by_xpath('/html/body/div[16]/ul[2]/li[3]').click()
     # else:driver.find_element_by_xpath('/html/body/div[16]/ul[2]/li[4]').click()
     # driver.find_element_by_xpath('/html/body/div[17]/div[2]/div/div/div[2]/button/span').click()
+    # ************
     time.sleep(2)
+    placeholder= random_str.generate_random_str(8)
+    print ("课程编码： %s" % placeholder)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[3]/div/div[1]/input').send_keys(placeholder)#输入课程编号
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[4]/div/div/div[1]/div/input').click()#选择开始时间
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[4]/div/div/div[2]/div/div/div/div[1]/span[5]').click()#选择开始时间//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[4]/div/div/div[2]/div/div/div/div[2]/div/span[18]/em
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[4]/div/div/div[2]/div/div/div/div[2]/div/span[18]/em').click()#选择开始时间
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[5]/div').click()#确定时间//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[4]/div/div/div[2]/div/div/div/div[4]/button[2]/span
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[1]/div/div[1]/div[1]/span[1]').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[1]/div/div[1]/div[2]/ul[2]/li[19]').click()#选择培训地点
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[2]/input').send_keys('shajh')
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[13]/div/div/button/span').click()#选择项目
+    time.sleep(1)
+    driver.find_element_by_xpath('/html/body/div[15]/div[2]/div/div/div[2]/div/div/div[1]/div/div[1]/table/thead/tr/th[1]/div/label/span/input').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('/html/body/div[15]/div[2]/div/div/div[3]/button[2]/span').click()
+    time.sleep(1)
+    # 注意，这种富文本一定有frame，一定要切frame,直接打开开发者选项搜索iframe，复制Xpath，
+    driver.switch_to.frame(driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[14]/div/div/div/div[2]/iframe'))
+    body_string = "Hello world again again!"
+    driver.find_element_by_tag_name('body').send_keys(body_string)  # 直接往frame里的body里填内容，是不是很简单粗暴
+    driver.switch_to.default_content()#从frame中切回主文档
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]/span').click()
+    time.sleep(1)
     errorFlag = 1
     print errorFlag
 
@@ -179,5 +217,5 @@ finally :
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\mrbtest1.xls')
     #退出浏览器
-    driver.quit()
+    # driver.quit()
     print "Enteryexercise.py运行结束！！！)"
