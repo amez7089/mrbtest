@@ -26,7 +26,7 @@ class Baidu(unittest.TestCase):
         time.sleep(2)
         self.driver.quit()
 
-if __name__ == "__main__":#41621892
+if __name__ == "__main__":
 
 #测试套件
     suit = unittest.TestSuite()
