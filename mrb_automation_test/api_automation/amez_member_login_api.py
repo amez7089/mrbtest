@@ -16,7 +16,7 @@ import HTMLTestRunner
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # 打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api.xls', formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -48,7 +48,7 @@ class MyTest(unittest.TestCase):
             headers = {"Content-Type": "application/json"}
             # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
             data = json.loads(table.cell(2, 6).value)
-            print type(data)
+            print data
             # 发送POST请求给接口：
             r = requests.post(url=url, json=data, headers=headers)
             # return r.json
@@ -222,7 +222,7 @@ class MyTest(unittest.TestCase):
     def tearDown(self):
         #           self.driver.quit()
         # 利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-        wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api.xls')
+        wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api.xls')
         print("tearDown")
 
 if __name__ == '__main__':

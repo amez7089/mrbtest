@@ -3,6 +3,7 @@
 from selenium import webdriver
 import unittest,time
 import HTMLTestRunner #引入HTMLTestRunner 包
+import HTMLTestRunnerCN
 
 
 class Baidu(unittest.TestCase):
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     fp = open("./" + file_prefix + "_result.html", "wb")
 
 #定义测试报告
-    runner = HTMLTestRunner.HTMLTestRunner(stream=fp,
+    runner = HTMLTestRunnerCN.HTMLTestRunner(stream=fp,
                                            title='百度搜索测试报告',
                                            description = u'用例执行情况:')
 
