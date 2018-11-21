@@ -2,7 +2,7 @@
 
 from selenium import webdriver
 import unittest,time
-import HTMLTestRunner #引入HTMLTestRunner 包
+# import HTMLTestRunner #引入HTMLTestRunner 包
 import HTMLTestRunnerCN
 
 
@@ -46,7 +46,8 @@ if __name__ == "__main__":
 #定义测试报告
     runner = HTMLTestRunnerCN.HTMLTestRunner(stream=fp,
                                            title='百度搜索测试报告',
-                                           description = u'用例执行情况:')
+                                           description = u'用例执行情况:',
+                                            tester=u'周楚奇')
 
 #运行测试用例
     runner.run(suit)

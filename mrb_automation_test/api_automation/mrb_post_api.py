@@ -11,7 +11,8 @@ import requests
 from datetime import datetime
 import json
 import sys
-import HTMLTestRunner
+import HTMLTestRunnerCN
+import time
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -100,4 +101,23 @@ class MyTest(unittest.TestCase):
         print("tearDown")
 
 if __name__ == '__main__':
-     unittest.main()
+    unittest.main()
+    # suite=unittest.TestSuite()
+    # suite.addTest(MyTest('test_logonin_success'))
+    # test_report = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation"
+    # #按照一定的格式获取当前的时间
+    # now = time.strftime("%Y-%m-%d_%H-%M-%S")
+    # #定义报告存放路径
+    # filename = test_report+'\\'+'Reportresult_'+now+'.html'
+    # fp = open(filename,'wb')
+    # #定义测试报告
+    # runner = HTMLTestRunnerCN.HTMLTestRunner(
+    #     stream=fp,
+    #     tester=u'周楚奇',
+    #     title=u'美容邦接口测试报告,测试结果如下：',
+    #     description=u'测试用例执行情况：'
+    #     )
+    # runner.run(suite)
+    # #关闭报告文件
+    # fp.close()
+

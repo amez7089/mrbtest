@@ -3,10 +3,12 @@ import time
 import unittest
 # import HTMLTestRunner
 import HTMLTestRunnerCN
+#定义函数执行mrb_post_api.py下所有的用例
 def Suite():
     testunit=unittest.TestSuite()
     test_dir = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation"
-    discover=unittest.defaultTestLoader.discover(test_dir,pattern='mrb_post_report.py',top_level_dir=None)
+    discover=unittest.defaultTestLoader.discover(test_dir,pattern='mrb_post_api.py',top_level_dir=None)
+    #执行mrb_post_api.py中所有的用例
     for test_suite in discover:
         for test_case in test_suite:
             testunit.addTests(test_case)

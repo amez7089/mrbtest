@@ -11,7 +11,8 @@ import requests
 from datetime import datetime
 import json
 import sys
-import HTMLTestRunner
+import HTMLTestRunnerCN
+import time
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -227,3 +228,20 @@ class MyTest(unittest.TestCase):
 
 if __name__ == '__main__':
      unittest.main()
+     suite = unittest.TestSuite()
+     # suite.addTest(MyTest('test_logonin_success'))
+     # suite.addTest(MyTest('test_logonin_1007'))
+     # suite.addTest(MyTest('test_logonin_1003'))
+     # suite.addTest(MyTest('test_logonin_1004'))
+     # way="E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\"
+     # nowtime=time.strftime('%Y-%m-%d_%H-%M-%S')
+     # filename=way+nowtime+nowtime+'.html'
+     # fd=open(filename,'wb')
+     # runner=HTMLTestRunnerCN.HTMLTestRunner(
+     #     stream=fd,
+     #     tester=u'周楚奇',
+     #     title=u'艾美接口测试',
+     #     description = u'测试用例执行情况：'
+     # )
+     # runner.run(suite)
+     # fd.close
