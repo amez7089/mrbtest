@@ -59,11 +59,13 @@ class MyTest(unittest.TestCase):
                 r = requests.post(url=url, json=data,headers=headers)
                 # return r.json
                 result = r.json()
+                print result
                 #                 print (r.text)
                 #                 print (r.status_code)
                 #                 print "the code is:",result['code']
                 # 判断响应消息中是否符合接口设计时的预期：
                 if ((result['message'] == u'接口调用成功') and (result['code'] == 200)):
+                    print result['message']
                     print 'Case Pass!'
                     # 将响应数据中的CODE写入用例文件中
                     ws.write(i, 8, result['code'])
