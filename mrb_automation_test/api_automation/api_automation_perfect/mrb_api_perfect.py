@@ -141,8 +141,8 @@ class mrb_api_test(unittest.TestCase):
                     print i
                     continue
                 # 判断响应消息中是否符合接口设计时的预期：
-                codeno=int(table.cell(i, 7).value)
-                if ( (result['code'] == codeno)):
+                Expect_code=int(table.cell(i, 7).value)
+                if ( (result['code'] == Expect_code)):
                     print result['message']
                     print 'Case Pass!'
                     # 将响应数据中的CODE写入用例文件中
