@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # *********************************
-# *******美容邦登录接口************
+# *****美容邦API接口测试报告*******
 # *********************************
 # 导入依赖模块
 import xlrd, xlwt
@@ -35,17 +35,17 @@ ws = wb.get_sheet(0)
 table = casefile.sheets()[0]
 
 
-class MyTest(unittest.TestCase):
+class mrb_api_test(unittest.TestCase):
     def setUp(self):
         print("setUp")
 
-    def test_logonin_success(self):
+    def test_mrb_api(self):
         i = 1
         No=u'開始'
         while No != u'完':
 
             try:
-                errorFlag = 0
+                # errorFlag = 0
                 way=table.cell(i, 5).value
                 print way
                 if way==u'post':
@@ -68,10 +68,10 @@ class MyTest(unittest.TestCase):
                     # 给消息头赋值
                     headers = {"Content-Type": "application/json"}
                     # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
-                    # data = json.loads(table.cell(i, 6).value)
-                    # print data
+                    data = json.loads(table.cell(i, 6).value)
+                    print data
                     # 发送get请求给接口：
-                    r = requests.get(url=url,headers=headers)
+                    r = requests.get(url=url,json=data,headers=headers)
                     result = r.json()
                     print result
                 elif way==u'delete':
@@ -81,10 +81,10 @@ class MyTest(unittest.TestCase):
                     # 给消息头赋值
                     headers = {"Content-Type": "application/json"}
                     # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
-                    # data = json.loads(table.cell(i, 6).value)
-                    # print data
+                    data = json.loads(table.cell(i, 6).value)
+                    print data
                     # 发送delete请求给接口：
-                    r = requests.delete(url=url,headers=headers)
+                    r = requests.delete(url=url,json=data,headers=headers)
                     # return r.json
                     result = r.json()
                     print result
@@ -95,18 +95,54 @@ class MyTest(unittest.TestCase):
                     # 给消息头赋值
                     headers = {"Content-Type": "application/json"}
                     # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
-                    # data = json.loads(table.cell(i, 6).value)
-                    # print data
+                    data = json.loads(table.cell(i, 6).value)
+                    print data
                     # 发送put请求给接口：
-                    r = requests.put(url=url,headers=headers)
+                    r = requests.put(url=url,json=data,headers=headers)
+                    # return r.json
+                    result = r.json()
+                    print result
+                elif way == u'head':
+                    # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
+                    url = table.cell(i, 4).value
+                    print url
+                    # 给消息头赋值
+                    headers = {"Content-Type": "application/json"}
+                    # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
+                    data = json.loads(table.cell(i, 6).value)
+                    print data
+                    # 发送put请求给接口：
+                    r = requests.head(url=url, json=data, headers=headers)
+                    # return r.json
+                    result = r.json()
+                    print result
+                elif way == u'options':
+                    # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
+                    url = table.cell(i, 4).value
+                    print url
+                    # 给消息头赋值
+                    headers = {"Content-Type": "application/json"}
+                    # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
+                    data = json.loads(table.cell(i, 6).value)
+                    print data
+                    # 发送put请求给接口：
+                    r = requests.options(url=url, json=data, headers=headers)
                     # return r.json
                     result = r.json()
                     print result
                 else:
+                    ws.write(i, 9, u'请求方式错误', style2)
+                    ws.write(i, 10, 'Failed', style2)
+                    ws.write(i, 11, 'zhouchuqi')
+                    ws.write(i, 12, datetime.now(), style1)
+                    i = i + 1
+                    No = table.cell(i, 2).value
                     print u'请求方式错误'
+                    print i
                     continue
                 # 判断响应消息中是否符合接口设计时的预期：
-                if ((result['message'] == u'接口调用成功') and (result['code'] == 200)):
+                codeno=int(table.cell(i, 7).value)
+                if ( (result['code'] == codeno)):
                     print result['message']
                     print 'Case Pass!'
                     # 将响应数据中的CODE写入用例文件中
@@ -123,7 +159,9 @@ class MyTest(unittest.TestCase):
                     ws.write(i, 8, result['code'])
                     # 将执行失败结果写入用例文件中
                     ws.write(i, 10, 'Fail', style2)
-                errorFlag = 1
+                ws.write(i, 11, 'zhouchuqi')
+                ws.write(i, 12, datetime.now(), style1)
+                # errorFlag = 1
             # finally:
             #     # 判断脚本执行到此处时，errorFlag是否为0，为0则表示没有执行到上一条语句errorFlag = 1，表示脚本有错误处中断了执行
             #     if (errorFlag == 0):
@@ -134,7 +172,7 @@ class MyTest(unittest.TestCase):
             #     ws.write(i, 12, datetime.now(), style1)
             except Exception as e:
                 print('请求出错,原因:%s' % e)
-                # ws.write(i, 9,e, style2)
+                ws.write(i, 9,u'脚本执行失败', style2)
                 ws.write(i, 10, 'Failed', style2)
                 ws.write(i, 11, 'zhouchuqi')
                 ws.write(i, 12, datetime.now(), style1)
@@ -153,8 +191,8 @@ class MyTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
     # suite=unittest.TestSuite()
-    # suite.addTest(MyTest('test_logonin_success'))
-    # test_report = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation"
+    # suite.addTest(mrb_api_test('test_logonin_success'))
+    # test_report = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect"
     # #按照一定的格式获取当前的时间
     # now = time.strftime("%Y-%m-%d_%H-%M-%S")
     # #定义报告存放路径
@@ -164,7 +202,7 @@ if __name__ == '__main__':
     # runner = HTMLTestRunnerCN.HTMLTestRunner(
     #     stream=fp,
     #     tester=u'周楚奇',
-    #     title=u'美容邦接口测试报告,测试结果如下：',
+    #     title=u'美容邦API接口测试报告：',
     #     description=u'测试用例执行情况：'
     #     )
     # runner.run(suite)
