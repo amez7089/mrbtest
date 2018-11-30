@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import pygame,sys,random
+import pygame
+import sys
+import random
 
 # 这个模块包含各种pygame中使用的常量
 from pygame.locals import *
