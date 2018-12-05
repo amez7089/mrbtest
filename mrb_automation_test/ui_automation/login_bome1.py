@@ -24,7 +24,7 @@ def click_url_and_clicl_loginbtn(browse,url):
     loginbtn_lable=browse.find_element_by_link_text("登录")
     loginbtn_lable.click()
     time.sleep(1)
-
+    
 def get_element_label(browse,element_id_dict):
     """
     get element lable
@@ -67,19 +67,19 @@ id_dict = {
     "login":"login_btn",
 }
 
-userinfo_dict={
-    "name" : "helloyiwantong@163.com",
-    "pwd" : "helloyiwantong@1234",
-    "url" : "http://www.maiziedu.com/",
-}
+# userinfo_dict={
+#     "name" : "helloyiwantong@163.com",
+#     "pwd" : "helloyiwantong@1234",
+#     "url" : "http://www.maiziedu.com/",
+# }
 
-# 函数使用
-
-userinfo_list =["name","pwd"]
-
-chrome = open_browse()
-click_url_and_clicl_loginbtn(chrome,url)
-
-lable_tuple = get_element_label(chrome,id_dict)
-
-send_key_s(lable_tuple,userinfo_dict,userinfo_list)
+# # 函数使用
+#
+# userinfo_list =["name","pwd"]
+#
+# chrome = open_browse()
+# click_url_and_clicl_loginbtn(chrome,url)
+#
+# lable_tuple = get_element_label(chrome,id_dict)
+#
+# send_key_s(lable_tuple,userinfo_dict,userinfo_list)
