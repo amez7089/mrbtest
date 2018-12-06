@@ -32,6 +32,7 @@ def get_element_label(browse,element_id_dict):
     :param element_id_dict:
     :return:
     """
+    #封装数据使用规则element_id_dict["name"]
     user_label = browse.find_element_by_id(element_id_dict["name"])
     pwd_label = browse.find_element_by_id(element_id_dict.get("pwd"))
     login_label = browse.find_element_by_id(element_id_dict.get("login"))
@@ -67,19 +68,19 @@ id_dict = {
     "login":"login_btn",
 }
 
-# userinfo_dict={
-#     "name" : "helloyiwantong@163.com",
-#     "pwd" : "helloyiwantong@1234",
-#     "url" : "http://www.maiziedu.com/",
-# }
+userinfo_dict={
+    "name" : "helloyiwantong@163.com",
+    "pwd" : "helloyiwantong@1234",
+    "url" : "http://www.maiziedu.com/",
+}
 
-# # 函数使用
-#
-# userinfo_list =["name","pwd"]
-#
-# chrome = open_browse()
-# click_url_and_clicl_loginbtn(chrome,url)
-#
-# lable_tuple = get_element_label(chrome,id_dict)
-#
-# send_key_s(lable_tuple,userinfo_dict,userinfo_list)
+# 函数使用
+
+userinfo_list =["name","pwd"]
+
+chrome = open_browse()
+click_url_and_clicl_loginbtn(chrome,url)
+
+lable_tuple = get_element_label(chrome,id_dict)
+
+send_key_s(lable_tuple,userinfo_dict,userinfo_list)

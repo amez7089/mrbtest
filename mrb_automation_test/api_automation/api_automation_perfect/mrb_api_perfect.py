@@ -161,16 +161,7 @@ class mrb_api_test(unittest.TestCase):
                     # 将执行失败结果写入用例文件中
                     ws.write(i, 10, 'Fail', style2)
                 ws.write(i, 11, 'zhouchuqi')
-                ws.write(i, 12, datetime.now(), style1)
-                # errorFlag = 1
-            # finally:
-            #     # 判断脚本执行到此处时，errorFlag是否为0，为0则表示没有执行到上一条语句errorFlag = 1，表示脚本有错误处中断了执行
-            #     if (errorFlag == 0):
-            #         print "Case---Failed!"
-            #         ws.write(i, 9, r.text, style2)
-            #         ws.write(i, 10, 'Failed', style2)
-            #     ws.write(i, 11, 'zhouchuqi')
-            #     ws.write(i, 12, datetime.now(), style1)
+                ws.write(i, 12, datetime.now(), style1) 
             except Exception as e:
                 print('请求出错,原因:%s' % e)
                 traceback.format_exc()
