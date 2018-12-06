@@ -13,6 +13,7 @@ import json
 import sys
 import HTMLTestRunnerCN
 import time
+import traceback
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -172,10 +173,15 @@ class mrb_api_test(unittest.TestCase):
             #     ws.write(i, 12, datetime.now(), style1)
             except Exception as e:
                 print('请求出错,原因:%s' % e)
+                traceback.format_exc()
+                # 写入异常至用例文件中：
+                errorInfo = str(traceback.format_exc())
+                print "****errorInfo:", errorInfo
                 ws.write(i, 9,u'脚本执行失败', style2)
                 ws.write(i, 10, 'Failed', style2)
                 ws.write(i, 11, 'zhouchuqi')
                 ws.write(i, 12, datetime.now(), style1)
+                ws.write(i, 13, errorInfo, style2)
             i=i+1
             No = table.cell(i, 2).value
             print No
