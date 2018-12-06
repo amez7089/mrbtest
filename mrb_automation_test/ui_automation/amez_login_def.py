@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 
-
+# 打开浏览器
 def open_browse():
     """
     open browser obj
@@ -12,19 +12,13 @@ def open_browse():
     browse_obj = webdriver.Chrome()
     return browse_obj
 
-
+# 打开并最大化网页窗口
 def open_homepage(browse, url):
-    """
-    open url and click "登录" btn
-    :param browse:
-    :param url:
-    :return:
-    """
     browse.get(url)
     browse.maximize_window()
     time.sleep(1)
 
-
+# 账号密码登陆并判断是否登陆成功
 def get_user_login(browse, name,pwd):
     """
     get element lable

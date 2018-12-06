@@ -19,7 +19,7 @@ import win32gui
 import win32con
 
 #打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('D:\\Python27\\TestData\\H5TestData.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\H5TestData.xls', formatting_info=True)
 #设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -330,8 +330,8 @@ finally :
     if(errorFlag == 0):
         print (u"Case--AmezMallH5_014_CouponExpired买家领取的优惠券过期---结果：Failed!")
         ws.write(345,7, 'Failed',style2)
-    ws.write(345,9, 'lilei')
+    ws.write(345,9, 'zhouchuqi')
     ws.write(345,8, datetime.datetime.now(), style1)
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-    wb.save('D:\\Python27\\TestData\\H5TestData.xls')
+    wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\H5TestData.xls')
     print u"****Case--AmezMallH5_014_CouponExpired.py--结束运行****"

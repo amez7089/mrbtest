@@ -25,7 +25,7 @@ from selenium.webdriver.support.ui import Select
 # execfile('AmezMallUI_013_ReceivesCoupons.py')
 
 #打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('D:\\Python27\\TestData\\UITestData.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\UITestData.xls', formatting_info=True)
 #设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -363,10 +363,10 @@ finally :
     if(errorFlag == 0):
         print (u"Case--AmezMallUI_014_UseCoupons买家使用优惠券--结果：Failed!")
         ws.write(212 ,7, 'Failed',style2)
-    ws.write(212,9, 'lilei')
+    ws.write(212,9, 'zhouchuqi')
     ws.write(212,8, datetime.now(), style1)    
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-    wb.save('D:\\Python27\\TestData\\UITestData.xls')
+    wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\UITestData.xls')
     #退出浏览器
     driver.quit()
     print u"Case--AmezMallUI_014_UseCoupons买家使用优惠券.py运行结束！！！"

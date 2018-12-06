@@ -14,7 +14,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 #打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('D:\\Python27\\TestData\\InterfaceData.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\InterfaceData.xls', formatting_info=True)
 #设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -76,7 +76,7 @@ class MyTest(unittest.TestCase):
                     print "Case---Failed!"
                     ws.write(2,9,r.text,style2)
                     ws.write(2,10, 'Failed',style2)
-                ws.write(2,11, 'lilei')
+                ws.write(2,11, 'zhouchuqi')
                 ws.write(2,12, datetime.now(), style1)    
 
         def test_logonin_1007(self):
@@ -122,7 +122,7 @@ class MyTest(unittest.TestCase):
                     print "Case---Failed!"
                     ws.write(3,9,r.text,style2)
                     ws.write(3,10, 'Failed',style2)
-                ws.write(3,11, 'lilei')
+                ws.write(3,11, 'zhouchuqi')
                 ws.write(3,12, datetime.now(), style1)
           
         def test_logonin_1003(self):
@@ -167,7 +167,7 @@ class MyTest(unittest.TestCase):
                     print "Case---Failed!"
                     ws.write(4,9,r.text,style2)
                     ws.write(4,10, 'Failed',style2)
-                ws.write(4,11, 'lilei')
+                ws.write(4,11, 'zhouchuqi')
                 ws.write(4,12, datetime.now(), style1)      
 
         def test_logonin_1004(self):
@@ -212,13 +212,13 @@ class MyTest(unittest.TestCase):
                     print "Case---Failed!"
                     ws.write(5,9,r.text,style2)
                     ws.write(5,10, 'Failed',style2)
-                ws.write(5,11, 'lilei')
+                ws.write(5,11, 'zhouchuqi')
                 ws.write(5,12, datetime.now(), style1)      
 
         def tearDown(self):        
 #           self.driver.quit() 
             #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-            wb.save('D:\\Python27\\TestData\\InterfaceData.xls')        
+            wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\InterfaceData.xls')
             print("tearDown")  
              
             

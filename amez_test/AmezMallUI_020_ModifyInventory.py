@@ -248,7 +248,7 @@ finally :
     if(errorFlag == 0):
         print (u"Case--AmezMallUI_020_ModifyInventory修改库存为0的商品库存后可购买---结果：Failed!")
         ws.write(296,7, 'Failed',style2)
-    ws.write(296,9, 'lilei')
+    ws.write(296,9, 'zhouchuqi')
     ws.write(296,8, datetime.now(), style1)
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\UITestData.xls')
