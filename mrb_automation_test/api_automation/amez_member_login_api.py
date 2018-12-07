@@ -141,10 +141,14 @@ class MyTest(unittest.TestCase):
             headers = {"Content-Type": "application/json"}
             # 传入参数从表格中读取出来不是字典类型，所以要转换类型为字典型
             data = json.loads(table.cell(4, 6).value)
+            # print data
             # 发送POST请求给接口：
             r = requests.post(url=url, json=data, headers=headers)
+            print r
+            print r.text
             # return r.json
             result = r.json()
+            print result
             #                 print (r.text)
             #                 print (r.status_code)
             #                 print "the code is:",result['code']
