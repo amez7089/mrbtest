@@ -19,7 +19,7 @@ def application(environ, start_response):
     # 组成一个数组，数组中只有一个字典
     dic = {'name': name, 'no': no}
 
-    return [json.dumps(dic)]
+    return [json.dumps(dic,ensure_ascii = False)]
 
 
 if __name__ == "__main__":

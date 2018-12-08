@@ -37,7 +37,7 @@ def jsonCut():
         word_str, word_num = cut(content)
         # 将结果格式化为dict
         data = {"word_str": word_str, "word_num": word_num}
-        return json.dumps(data) # 将data序列化为json类型的str
+        return json.dumps(data,ensure_ascii = False) # 将data序列化为json类型的str
     else:
         return """<html><body>
         Something went horribly wrong

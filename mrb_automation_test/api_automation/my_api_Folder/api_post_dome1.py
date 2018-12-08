@@ -22,7 +22,7 @@ def application(environ, start_response):
 
     dic = {'myNameIs': name, 'myNoIs': no}
 
-    return [json.dumps(dic)]
+    return [json.dumps(dic,ensure_ascii = False)]
 
 
 
