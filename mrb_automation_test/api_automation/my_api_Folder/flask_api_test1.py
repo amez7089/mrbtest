@@ -21,6 +21,9 @@ toy = Flask(__name__) # create a Flask instance
 def index():
     return "Hello, World!"
 
+@toy.route("/myapi")
+def index11():
+    return "Hello, World111222!"
 # <string:content>定义输入的内容的类型及变量名，注意":"左右不能有空格，
 @toy.route("/cut/para/<string:content>")
 def paraCut(content):
