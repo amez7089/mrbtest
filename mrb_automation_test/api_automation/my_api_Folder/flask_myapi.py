@@ -25,19 +25,14 @@ def amezmemberidfind(id):
     return Usertable[id]
 @app.route("/amez/member",methods=["POST"])
 def member_id():
-    if request.method == "POST":
-        # 从request请求中提取json内容
-        json_dict = request.get_json()
-        content = json_dict["content"]
-        # 运行业务逻辑
-        word_str, word_num = cut(content)
-        # 将结果格式化为dict
-        data = {"word_str": word_str, "word_num": word_num}
-        return json.dumps(data,ensure_ascii = False) # 将data序列化为json类型的str
-    else:
-        return u'请求方式错误'
-
-
+    # 从request请求中提取json内容
+    json_dict = request.get_json()
+    content = json_dict["content"]
+    # 运行业务逻辑
+    word_str, word_num = cut(content)
+    # 将结果格式化为dict
+    data = {"word_str": word_str, "word_num": word_num}
+    return json.dumps(data,ensure_ascii = False) # 将data序列化为json类型的str
 
 
 @app.errorhandler(404)
