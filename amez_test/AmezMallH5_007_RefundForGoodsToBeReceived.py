@@ -17,7 +17,7 @@ import traceback
 from selenium.webdriver.common.keys import Keys
 
 #打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\H5TestData.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amez_test\\H5TestData.xls', formatting_info=True)
 #设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -442,7 +442,7 @@ finally :
     #写入执行日期
     ws.write(104,8, datetime.now(), style1)    
     #利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-    wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amze_test\\H5TestData.xls')
+    wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amez_test\\H5TestData.xls')
     #退出浏览器
     driver.quit()
     print u"Case--AmezMallH5_007_RefundForGoodsToBeReceived.py运行结束！！！"

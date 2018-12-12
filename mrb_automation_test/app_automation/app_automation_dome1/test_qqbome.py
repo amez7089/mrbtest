@@ -1,10 +1,10 @@
-# coding=utf-8
+# encoding=utf-8
 import time
 import sys
-from uiautomator import device as d
+from uiautomator2 import device as d
 reload(sys)
 sys.setdefaultencoding('utf-8')
-print u'打开qq'
+print (u'打开qq')
 d(text=u'QQ').click()
 d(text=u'登录').click()
 time.sleep(2)
