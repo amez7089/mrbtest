@@ -26,6 +26,7 @@ def get_user_login(browse, name,pwd):
     :param element_id_dict:
     :return:
     """
+    browse.get('http://web.test.amyun.cn/')
     browse.find_element_by_xpath('//*[@id="app"]/div[1]/div/ul/li[1]').click()
     time.sleep(2)
     browse.find_element_by_xpath('//*[@id="am_content"]/div/div[2]/div/div[2]/div[2]/div[1]/input').send_keys(

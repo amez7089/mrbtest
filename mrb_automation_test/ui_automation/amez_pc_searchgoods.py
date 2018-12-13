@@ -13,7 +13,7 @@ import sys
 from lib2to3.tests.support import driver
 from cgitb import text
 from selenium.common.exceptions import StaleElementReferenceException
-import amez_login_def
+import amez_pc_login_def
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -47,9 +47,9 @@ try:
     # 读取密码
     passWord = table.cell(6, 5).value
     print passWord
-    driver = amez_login_def.open_browse()
-    amez_login_def.open_homepage(driver, "http://web.test.amyun.cn/")
-    lable_tuple = amez_login_def.get_user_login(driver, userName,passWord)
+    driver = amez_pc_login_def.open_browse()
+    amez_pc_login_def.open_homepage(driver, "http://web.test.amyun.cn/")
+    lable_tuple = amez_pc_login_def.get_user_login(driver, userName, passWord)
     # 打开谷歌浏览器
     # driver = webdriver.Chrome()
     # # 最大化浏览器

@@ -12,6 +12,8 @@ from datetime import datetime
 from selenium.webdriver.support.ui import Select
 import sys
 import re
+import amez_h5_login_def
+import amez_h5_buggoods_class
 from selenium.webdriver.common.action_chains import ActionChains
 
 reload(sys)
@@ -48,125 +50,19 @@ try:
     # 读取密码
     passWord = table.cell(10, 5).value
     print passWord
-    # 定义H5机型
-    mobile_emulation = {'deviceName': 'iPhone X'}
-    # 打开谷歌浏览器
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('mobileEmulation', mobile_emulation)
-    driver = webdriver.Chrome(chrome_options=options)
-    # 最大化浏览器
-    driver.maximize_window()
-    # 打开商城登录地址
     loginadress = table.cell(3, 5).value
-    driver.get(loginadress)
+    print loginadress
+    driver=amez_h5_login_def.open_browse(loginadress,'iPhone X')
     time.sleep(2)
-    # 点击我的
-    el = driver.find_element_by_xpath("//*[@id='app']/div/div[19]/section/div/a[5]/p")
-    driver.execute_script("arguments[0].click();", el)
-    time.sleep(2)
-    # 跳转至登录页面输入用户名密码,登录
-    driver.find_element_by_xpath("//*[@id='accountLogin']/div[2]/div[1]/input").send_keys(userName)
-    driver.find_element_by_xpath("//*[@id='accountLogin']/div[2]/div[2]/input").send_keys(passWord, Keys.ENTER)
-    time.sleep(2)
+    amez_h5_login_def.login_member(driver,userName,passWord)
     # 搜索框输入要搜索的商品
     ReadGoods = table.cell(27, 5).value
     # 点击搜索栏进入搜索页面
-    driver.find_element_by_xpath("//*[@id='app']/div/div[1]/input").click()
-    time.sleep(1)
-    # 输入要搜索的商品
-    driver.find_element_by_xpath("//*[@id='app']/div/div[1]/div[1]/form/input").send_keys(ReadGoods, Keys.ENTER)
-    time.sleep(3)
-    # 查看被搜索出来的商品第一条
-    SearchGoods = driver.find_element_by_xpath("//*[@id='app']/div/section[2]/ul/li[1]/div[2]/div[1]").text
-    print "SearchGoods:", SearchGoods
-    if (SearchGoods == u"小米（MI）小米电视4X 55英寸 L55M5-AD 2GB+8GB HDR 4K超高清 蓝牙语音遥"):
-        print u"搜索商品成功，搜索出的第一条商品为：", SearchGoods
-        # 点击商品进入商品详情
-        driver.find_element_by_xpath("//*[@id='app']/div/section[2]/ul/li[1]/div[2]/div[1]").click()
-        time.sleep(2)
-        # 点击立即购买
-        # JS点击立即购买按钮
-        js = 'document.getElementsByClassName("ljgm")[0].click();'
-        driver.execute_script(js)
-        time.sleep(2)
-        # 选择规格
-        # 小米电视4
-        el = driver.find_element_by_xpath("//*[@id='app']/div/section[8]/section/div[2]/div[1]/div/span[1]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(1)
-        # 75英寸
-        el = driver.find_element_by_xpath("//*[@id='app']/div/section[8]/section/div[2]/div[2]/div/span[1]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(1)
-        # 点击确定
-        js = 'document.getElementsByClassName("but_full_square_outer")[0].click();'
-        driver.execute_script(js)
-        time.sleep(3)
-        # 确认订单页面点击提交订单
-        el = driver.find_element_by_xpath("//*[@id='app']/div/section[6]/button")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(3)
-        # 收银台页面选择余额支付
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[1]/section/ul/li[4]/label/span[1]/i[1]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(1)
-        # 确定
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[1]/section/a")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(2)
-        # 输入支付密码
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[1]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(0.5)
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[2]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(0.5)
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[3]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(0.5)
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[4]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(0.5)
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[5]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(0.5)
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div[2]/div[3]/ul/li[6]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(5)
-        # 待支付成功后，关掉弹框，查看订单
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div[2]/div/span")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(1)
-        # 点击查看订单
-        el = driver.find_element_by_xpath("//*[@id='app']/div/div/div[1]/div[3]/div[1]")
-        driver.execute_script("arguments[0].click();", el)
-        time.sleep(3)
-        # 在待发货页面，查看订单
-        OrderGoods = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]").text
-        OrderStatus = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[1]/span").text
-        print "OrderGoods:", OrderGoods
-        print "OrderStatus", OrderStatus
-        if (OrderGoods == u"小米（MI）小米电视4X 55英寸 L55M5-AD 2GB+8GB HDR 4K超高清 蓝牙语音遥" and OrderStatus == u"待发货"):
-            print u"订单支付成功！！！"
-            # 点击商品进入订单详情页面
-            el = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]")
-            driver.execute_script("arguments[0].click();", el)
-            time.sleep(2)
-            # 保存订单编号
-            OrderNumber = str(
-                driver.find_element_by_xpath("//*[@id='app']/div/div[2]/section[3]/div[3]/p/span[1]").text)
-            print "OrderNumber:", OrderNumber
-            # 提取出订单编号
-            OrderNumber = re.findall(r"订单编号：(.*)", OrderNumber)
-            # 将提取出的List类型转化为str类型
-            OrderNumber = ''.join(OrderNumber)
-            print "提取后的OrderNumber:", OrderNumber
-            ws.write(158, 5, OrderNumber)
-            errorFlag = 1
-        else:
-            print u"订单购买失败"
-    else:
-        print u"搜索失败"
+    amez_h5_buggoods_class.amez_h5_buygoods(driver,ReadGoods)
+    OrderNumber=amez_h5_buggoods_class.amez_h5_get_ordernumber(driver,ReadGoods)
+    print OrderNumber
+    errorFlag=1
+
 
 except Exception as e:
     print(e)
@@ -187,6 +83,6 @@ finally:
     ws.write(144, 8, datetime.now(), style1)
     # 利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\amez_test\\H5TestData.xls')
-    退出浏览器
+    # 退出浏览器
     driver.quit()
     print u"Case--AmezMallH5_008_ReceivedRefund.py运行结束！！！"
