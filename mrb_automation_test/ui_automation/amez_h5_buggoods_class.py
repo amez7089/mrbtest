@@ -6,7 +6,9 @@ import time
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import re
-def amez_h5_buygoods(driver,ReadGoods):
+
+
+def amez_h5_buygoods(driver, ReadGoods):
     driver.get('http://mobile.test.amyun.cn/')
     time.sleep(1)
     # 点击搜索栏进入搜索页面
@@ -76,7 +78,7 @@ def amez_h5_buygoods(driver,ReadGoods):
         driver.execute_script("arguments[0].click();", el)
         time.sleep(1)
         # 获取支付成功元素
-        successIcon=driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/p').text
+        successIcon = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/p').text
         if (successIcon == u"您已支付成功"):
             print u"订单支付成功！！！"
         # 返回首页
@@ -84,29 +86,30 @@ def amez_h5_buygoods(driver,ReadGoods):
         driver.execute_script("arguments[0].click();", el)
         time.sleep(2)
 
-def amez_h5_get_ordernumber(driver,ReadGoods):
-        # 点击查看订单
-        driver.get('http://mobile.test.amyun.cn/mine')
-        time.sleep(2)
-        el = driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/ul/li[2]/div/img')
+
+def amez_h5_get_ordernumber(driver, ReadGoods):
+    # 点击查看订单
+    driver.get('http://mobile.test.amyun.cn/mine')
+    time.sleep(2)
+    el = driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/ul/li[2]/div/img')
+    driver.execute_script("arguments[0].click();", el)
+    time.sleep(3)
+    # 在待发货页面，查看订单
+    OrderGoods = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]").text
+    OrderStatus = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[1]/span").text
+    print "OrderGoods:", OrderGoods
+    print "OrderStatus", OrderStatus
+    if (ReadGoods in OrderGoods and OrderStatus == u"待发货"):
+        el = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]")
         driver.execute_script("arguments[0].click();", el)
-        time.sleep(3)
-        # 在待发货页面，查看订单
-        OrderGoods = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]").text
-        OrderStatus = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[1]/span").text
-        print "OrderGoods:", OrderGoods
-        print "OrderStatus", OrderStatus
-        if (ReadGoods in OrderGoods and OrderStatus == u"待发货"):
-            el = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]")
-            driver.execute_script("arguments[0].click();", el)
-            time.sleep(2)
-            # 保存订单编号
-            OrderNumber = str(
-                driver.find_element_by_xpath("//*[@id='app']/div/div[2]/section[3]/div[3]/p/span[1]").text)
-            print "OrderNumber:", OrderNumber
-            # 提取出订单编号
-            OrderNumber = re.findall(r"订单编号：(.*)", OrderNumber)
-            # 将提取出的List类型转化为str类型
-            OrderNumber = ''.join(OrderNumber)
-            print "提取后的OrderNumber:", OrderNumber
-            return OrderNumber
+        time.sleep(2)
+        # 保存订单编号
+        OrderNumber = str(
+            driver.find_element_by_xpath("//*[@id='app']/div/div[2]/section[3]/div[3]/p/span[1]").text)
+        print "OrderNumber:", OrderNumber
+        # 提取出订单编号
+        OrderNumber = re.findall(r"订单编号：(.*)", OrderNumber)
+        # 将提取出的List类型转化为str类型
+        OrderNumber = ''.join(OrderNumber)
+        print "提取后的OrderNumber:", OrderNumber
+        return OrderNumber

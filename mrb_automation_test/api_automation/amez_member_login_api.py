@@ -17,7 +17,8 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # 打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api.xls',
+                              formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -230,22 +231,23 @@ class MyTest(unittest.TestCase):
         wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api.xls')
         print("tearDown")
 
+
 if __name__ == '__main__':
-     unittest.main()
-     suite = unittest.TestSuite()
-     # suite.addTest(MyTest('test_logonin_success'))
-     # suite.addTest(MyTest('test_logonin_1007'))
-     # suite.addTest(MyTest('test_logonin_1003'))
-     # suite.addTest(MyTest('test_logonin_1004'))
-     # way="E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\"
-     # nowtime=time.strftime('%Y-%m-%d_%H-%M-%S')
-     # filename=way+nowtime+nowtime+'.html'
-     # fd=open(filename,'wb')
-     # runner=HTMLTestRunnerCN.HTMLTestRunner(
-     #     stream=fd,
-     #     tester=u'周楚奇',
-     #     title=u'艾美接口测试',
-     #     description = u'测试用例执行情况：'
-     # )
-     # runner.run(suite)
-     # fd.close
+    unittest.main()
+    suite = unittest.TestSuite()
+    # suite.addTest(MyTest('test_logonin_success'))
+    # suite.addTest(MyTest('test_logonin_1007'))
+    # suite.addTest(MyTest('test_logonin_1003'))
+    # suite.addTest(MyTest('test_logonin_1004'))
+    # way="E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\"
+    # nowtime=time.strftime('%Y-%m-%d_%H-%M-%S')
+    # filename=way+nowtime+nowtime+'.html'
+    # fd=open(filename,'wb')
+    # runner=HTMLTestRunnerCN.HTMLTestRunner(
+    #     stream=fd,
+    #     tester=u'周楚奇',
+    #     title=u'艾美接口测试',
+    #     description = u'测试用例执行情况：'
+    # )
+    # runner.run(suite)
+    # fd.close
