@@ -8,20 +8,20 @@ from selenium.webdriver.common.keys import Keys
 import re
 
 
-def amez_h5_buygoods(driver, ReadGoods):
+def amez_h5_buygoods(driver, readgoods):
     driver.get('http://mobile.test.amyun.cn/')
     time.sleep(1)
     # 点击搜索栏进入搜索页面
     driver.find_element_by_xpath("//*[@id='app']/div/div[1]/input").click()
     time.sleep(1)
     # 输入要搜索的商品
-    driver.find_element_by_xpath("//*[@id='app']/div/div[1]/div[1]/form/input").send_keys(ReadGoods, Keys.ENTER)
+    driver.find_element_by_xpath("//*[@id='app']/div/div[1]/div[1]/form/input").send_keys(readgoods, Keys.ENTER)
     time.sleep(3)
     # 查看被搜索出来的商品第一条
-    SearchGoods = driver.find_element_by_xpath("//*[@id='app']/div/section[2]/ul/li[1]/div[2]/div[1]").text
-    print "SearchGoods:", SearchGoods
-    if ReadGoods in SearchGoods:
-        print u"搜索商品成功，搜索出的第一条商品为：", SearchGoods
+    searchgoods = driver.find_element_by_xpath("//*[@id='app']/div/section[2]/ul/li[1]/div[2]/div[1]").text
+    print "searchgoods:", searchgoods
+    if readgoods in searchgoods:
+        print u"搜索商品成功，搜索出的第一条商品为：", searchgoods
         # 点击商品进入商品详情
         driver.find_element_by_xpath("//*[@id='app']/div/section[2]/ul/li[1]/div[2]/div[1]").click()
         time.sleep(2)
@@ -78,8 +78,8 @@ def amez_h5_buygoods(driver, ReadGoods):
         driver.execute_script("arguments[0].click();", el)
         time.sleep(1)
         # 获取支付成功元素
-        successIcon = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/p').text
-        if (successIcon == u"您已支付成功"):
+        successicon = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/p').text
+        if successicon == u"您已支付成功":
             print u"订单支付成功！！！"
         # 返回首页
         el = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[1]/div[3]/div[2]')
@@ -87,7 +87,7 @@ def amez_h5_buygoods(driver, ReadGoods):
         time.sleep(2)
 
 
-def amez_h5_get_ordernumber(driver, ReadGoods):
+def amez_h5_get_ordernumber(driver, readgoods):
     # 点击查看订单
     driver.get('http://mobile.test.amyun.cn/mine')
     time.sleep(2)
@@ -95,21 +95,21 @@ def amez_h5_get_ordernumber(driver, ReadGoods):
     driver.execute_script("arguments[0].click();", el)
     time.sleep(3)
     # 在待发货页面，查看订单
-    OrderGoods = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]").text
-    OrderStatus = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[1]/span").text
-    print "OrderGoods:", OrderGoods
-    print "OrderStatus", OrderStatus
-    if (ReadGoods in OrderGoods and OrderStatus == u"待发货"):
+    ordergoods = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]").text
+    orderstatus = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[1]/span").text
+    print "ordergoods:", ordergoods
+    print "orderstatus", orderstatus
+    if readgoods in ordergoods and orderstatus == u"待发货":
         el = driver.find_element_by_xpath("//*[@id='app']/div/div/section[1]/div[2]/ul/li/div[2]/p[1]")
         driver.execute_script("arguments[0].click();", el)
         time.sleep(2)
         # 保存订单编号
-        OrderNumber = str(
+        ordernumber = str(
             driver.find_element_by_xpath("//*[@id='app']/div/div[2]/section[3]/div[3]/p/span[1]").text)
-        print "OrderNumber:", OrderNumber
+        print "ordernumber:", ordernumber
         # 提取出订单编号
-        OrderNumber = re.findall(r"订单编号：(.*)", OrderNumber)
+        ordernumber = re.findall(r"订单编号：(.*)", ordernumber)
         # 将提取出的List类型转化为str类型
-        OrderNumber = ''.join(OrderNumber)
-        print "提取后的OrderNumber:", OrderNumber
-        return OrderNumber
+        ordernumber = ''.join(ordernumber)
+        print "提取后的ordernumber:", ordernumber
+        return ordernumber

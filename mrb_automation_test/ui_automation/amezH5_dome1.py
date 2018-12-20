@@ -4,7 +4,8 @@
 # *******已收货订单退款退货，商家同意********
 # ****************************************
 # 导入依赖模块
-import xlrd, xlwt
+import xlrd
+import xlwt
 import time
 from selenium import webdriver
 from xlutils.copy import copy
@@ -15,12 +16,11 @@ import re
 import amez_h5_login_def
 import amez_h5_buggoods_class
 from selenium.webdriver.common.action_chains import ActionChains
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 import traceback
 from selenium.webdriver.common.keys import Keys
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 # 打开用例文件，读取对应用例的用户名等数据
 casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amez_test\\H5TestData.xls', formatting_info=True)
 # 设置日期格式
@@ -39,10 +39,9 @@ ws = wb.get_sheet(0)
 # 打开第一张表
 table = casefile.sheets()[0]
 print u"****Case--AmezMallH5_008_ReceivedRefund已收货订单退款退货，商家同意--开始运行****"
-
+# 失败标志
+errorFlag = 0
 try:
-    # 失败标志
-    errorFlag = 0
     print u"会员登录购买商品！"
     # 读取用户名
     userName = table.cell(9, 5).value
@@ -52,16 +51,16 @@ try:
     print passWord
     loginadress = table.cell(3, 5).value
     print loginadress
-    driver=amez_h5_login_def.open_browse(loginadress,'iPhone X')
+    driver = amez_h5_login_def.open_browse(loginadress, 'iPhone X')
     time.sleep(2)
-    amez_h5_login_def.login_member(driver,userName,passWord)
+    amez_h5_login_def.login_member(driver, userName, passWord)
     # 搜索框输入要搜索的商品
     ReadGoods = table.cell(27, 5).value
     # 点击搜索栏进入搜索页面
-    amez_h5_buggoods_class.amez_h5_buygoods(driver,ReadGoods)
-    OrderNumber=amez_h5_buggoods_class.amez_h5_get_ordernumber(driver,ReadGoods)
+    amez_h5_buggoods_class.amez_h5_buygoods(driver, ReadGoods)
+    OrderNumber = amez_h5_buggoods_class.amez_h5_get_ordernumber(driver, ReadGoods)
     print OrderNumber
-    errorFlag=1
+    errorFlag = 1
 
 
 except Exception as e:
@@ -74,7 +73,7 @@ except Exception as e:
     ws.write(144, 10, errorInfo, style2)
 
 finally:
-    if (errorFlag == 0):
+    if errorFlag == 0:
         print u"Case--AmezMallH5_008_ReceivedRefund已收货订单退款退货，商家同意--结果：Failed!"
         ws.write(144, 7, 'Failed', style2)
     # 写入执行人员

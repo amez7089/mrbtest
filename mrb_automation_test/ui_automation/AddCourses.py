@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-import xlrd, xlwt
+import xlrd
+import xlwt
 import time
 import os
 from selenium import webdriver
@@ -14,8 +15,8 @@ from cgitb import text
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # 打开用例文件，读取对应用例的用户名等数据
-# casefile = xlrd.open_workbook('D:\\test\\mrbtest1.xls', formatting_info=True)
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\mrbtest1.xls',
+# caseFile = xlrd.open_workbook('D:\\test\\mrbtest1.xls', formatting_info=True)
+caseFile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\mrbtest1.xls',
                               formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
@@ -28,14 +29,14 @@ font0.bold = True  # 加粗
 style2 = xlwt.XFStyle()
 style2.font = font0
 # 准备向用例文件中写入测试结果
-wb = copy(casefile)
+wb = copy(caseFile)
 ws = wb.get_sheet(0)
 # 打开第一张表
-table = casefile.sheets()[0]
-print(u"Enteryexercise.py运行结束--开始运行****")
+table = caseFile.sheets()[0]
+print(u"AddCourses.py运行结束--开始运行****")
+# 失败标志
+errorFlag = 0
 try:
-    # 失败标志
-    errorFlag = 0
     # 读取用户名
     userName = table.cell(1, 1).value
     print userName
@@ -59,7 +60,7 @@ try:
     driver.find_element_by_class_name("btn").click()
     text = driver.find_element_by_class_name("ivu-breadcrumb-item-link").text
     print text
-    if (text == u"首页"):
+    if text == u"首页":
         print u"登录成功！！"
         # ws.write(1, 9, 'Pass')
     else:
@@ -98,8 +99,8 @@ try:
     # n,m 用来定位获取表格中位置
     m = 2
     y = 15
-    Tunll = str(u'第一题')
-    while Tunll != u'完':
+    Title = str(u'第一题')
+    while Title != u'完':
         n = 1
         i = 1
         print i
@@ -151,14 +152,14 @@ try:
         j = int(j)
         j = j + 1
         m = m + 1
-        Tunll = table.cell(m, 1).value
-        # Tunll=table.row(m)[1].value
-        print Tunll, m,
-        if Tunll != u'完':
+        Title = table.cell(m, 1).value
+        # Title=table.row(m)[1].value
+        print Title, m,
+        if Title != u'完':
             # driver.find_element_by_class_name('ivu-btn ivu-btn-primary').click()
             driver.find_element_by_xpath('/html/body/div[16]/div[2]/div/div/div[2]/button/span').click()
         else:
-            print Tunll
+            print Title
             driver.find_element_by_xpath('/html/body/div[16]/div[2]/div/div/div[3]/div/button[2]').click()
     #  *********
     # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]').click()
@@ -177,7 +178,7 @@ try:
     # ************
     time.sleep(2)
     placeholder = random_str.generate_random_str(8)
-    print ("课程编码： %s" % placeholder)
+    print("课程编码： %s" % placeholder)
     driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[3]/div/div[1]/input'). \
         send_keys(placeholder)  # 输入课程编号
     driver.find_element_by_xpath(
@@ -198,16 +199,18 @@ try:
                                  'div[1]/span[1]').click()
     time.sleep(1)
     driver.find_element_by_xpath(
-        '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[1]/div/div[1]/div[2]/ul[2]/li[19]').click()  # 选择培训地点
+        '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[1]/div/div[1]/div[2]/ul[2]/li[19]')\
+        .click()  # 选择培训地点
     time.sleep(1)
     driver.find_element_by_xpath(
         '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[6]/div/div[2]/input').send_keys('shajh')
     time.sleep(1)
     driver.find_element_by_xpath(
-        '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[13]/div/div/button/span').click()  # 选择项目/html/body/div[14]/div[2]/div/div/div[2]/div/div/div[1]/div/div[1]/table/thead/tr/th[1]/div/label/span/input
+        '//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[13]/div/div/button/span').click()  # 选择项目
     time.sleep(1)
     driver.find_element_by_xpath(
-        '/html/body/div[14]/div[2]/div/div/div[2]/div/div/div[1]/div/div[1]/table/thead/tr/th[1]/div/label/span/input').click()
+        '/html/body/div[14]/div[2]/div/div/div[2]/div/div/div[1]/div/div[1]/table/thead/tr/th[1]/div/label/span/input')\
+        .click()
     time.sleep(1)
     driver.find_element_by_xpath('/html/body/div[14]/div[2]/div/div/div[3]/button[2]/span').click()
     time.sleep(1)
@@ -217,7 +220,8 @@ try:
     body_string = "Hello world again again!"
     driver.find_element_by_tag_name('body').send_keys(body_string)  # 直接往frame里的body里填内容，是不是很简单粗暴
     driver.switch_to.default_content()  # 从frame中切回主文档
-    # driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]/span').click()
+    driver.find_element_by_xpath('//*[@id="main"]/div/div/div[2]/div[3]/div/div/div/form/div[15]/div/button[2]/span')\
+        .click()
     time.sleep(1)
     errorFlag = 1
     print errorFlag
@@ -226,11 +230,12 @@ except Exception as e:
     print(e)
 
 finally:
-    if (errorFlag == 0):
-        print (u"Enteryexercise.py运行结束--结果：Failed!")
+    if errorFlag == 0:
+        print "AddCourses.py运行结束--结果：Failed!"
+
         ws.write(1, 9, 'Failed', style2)
     else:
-        print (u"Enteryexercise.py运行结束--结果：pass!")
+        print "AddCourses.py运行结束--结果：pass!"
         ws.write(1, 9, 'pass')
     ws.write(1, 10, u'周楚奇')
     ws.write(1, 11, datetime.now(), style1)
@@ -238,4 +243,4 @@ finally:
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\mrbtest1.xls')
     # 退出浏览器
     driver.quit()
-    print "Enteryexercise.py运行结束！！！)"
+    print "AddCourses.py运行结束！！！"

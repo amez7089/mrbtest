@@ -4,7 +4,8 @@
 # *******会员搜索商品****************
 # *********************************
 # 导入依赖模块
-import xlrd, xlwt
+import xlrd
+import xlwt
 import time
 from selenium import webdriver
 from xlutils.copy import copy
@@ -14,13 +15,13 @@ from lib2to3.tests.support import driver
 from cgitb import text
 from selenium.common.exceptions import StaleElementReferenceException
 import amez_pc_login_def
-
+import traceback
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import traceback
 
 # 打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\UITestData.xls', formatting_info=True)
+casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\UITestData.xls',
+                              formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -36,11 +37,11 @@ wb = copy(casefile)
 ws = wb.get_sheet(0)
 # 打开第一张表
 table = casefile.sheets()[0]
-print u"****Case--AmezMallUI_002_SearchGood会员搜索商品--开始运行****"
-
+print u"amze_PC_searchgoods会员搜索商品--开始运行"
+# 失败标志
+errorFlag = 0
 try:
-    # 失败标志
-    errorFlag = 0
+
     # 读取用户名
     userName = table.cell(5, 5).value
     print userName
@@ -82,37 +83,36 @@ try:
     driver.find_element_by_class_name("searchIn").send_keys(searchtext)
     driver.find_element_by_class_name("searchBtn").click()
     time.sleep(2)
-
-
+    
     # 因为在点击时页面刷新，导致元素找不到，所以此函数作用是当找不到元素时，再次获取
-    def retryingFindClick(by):
+    def retrying_find_click(by):
         result = False
-        Attempts = 0
-        while Attempts < 5:
+        attempts = 0
+        while attempts < 5:
             try:
                 result = driver.find_elements_by_class_name(by)[0].text
                 break
             except StaleElementReferenceException, e:
                 print(e)
                 pass
-            Attempts += 1
+            attempts += 1
         return result
 
 
     # 因为窗口变化，所以要定位当前的句柄，不然无法找到元素
     sreach_window = driver.current_window_handle[1]
     time.sleep(2)
-    textMi = retryingFindClick("goodsName")
+    textMi = retrying_find_click("goodsName")
     print "textMi:", textMi
     readMi = table.cell(14, 5).value
     print "readMi:", readMi
-    if (textMi == readMi):
-        print u"会员搜索商品成功！！"
+    if textMi == readMi:
+        print "会员搜索商品成功！！"
         ws.write(8, 7, 'Pass')
         # 如果成功，将错误日志覆盖
         ws.write(8, 10, '')
     else:
-        print u"会员搜索商品失败！！"
+        print "会员搜索商品失败！！"
         ws.write(8, 7, 'Failed', style2)
     errorFlag = 1
 
@@ -126,8 +126,8 @@ except Exception as e:
     ws.write(8, 10, errorInfo, style2)
 
 finally:
-    if (errorFlag == 0):
-        print (u"Case--AmezMallUI_002_SearchGood会员搜索商品--结果：Failed!")
+    if errorFlag == 0:
+        print "amze_PC_searchgoods会员搜索商品--结果：Failed!"
         ws.write(8, 7, 'Failed', style2)
     ws.write(8, 9, 'zhouchuqi')
     ws.write(8, 8, datetime.now(), style1)
@@ -135,4 +135,4 @@ finally:
     wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\ui_automation\\UITestData.xls')
     # 退出浏览器
     driver.quit()
-    print u"Case--AmezMallUI_002_SearchGood.py运行结束！！！"
+    print "amze_PC_searchgoods.py运行结束！！！"

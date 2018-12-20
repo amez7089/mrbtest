@@ -4,6 +4,8 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 import re
 import amez_pc_login_def
+
+
 def get_ordernumber(driver):
     # amez_login_def.open_homepage(driver,"http://web.test.amyun.cn/")
     # amez_login_def.get_user_login(driver,"13713948825","123456")
@@ -21,17 +23,17 @@ def get_ordernumber(driver):
         driver.switch_to_window(handle)
     time.sleep(2)
     # 获取订单号：
-    orderNumber = str(driver.find_element_by_xpath(
+    ordernumber = str(driver.find_element_by_xpath(
         "//*[@id='am_content']/div/div[2]/div[2]/div/div[2]/div[1]/div[1]/ul/li/dl/dd[1]").text)
-    print "orderNumber:",orderNumber
+    print "ordernumber:", ordernumber
     # 提取出订单编号
-    orderNumber = re.findall(r"订单号：(.*)", orderNumber)
-    #     print "orderNumber1:",orderNumber
-    #     print type(orderNumber)
+    ordernumber = re.findall(r"订单号：(.*)", ordernumber)
+    #     print "ordernumber1:",ordernumber
+    #     print type(ordernumber)
     # 将提取出的List类型转化为str类型
-    orderNumber = ''.join(orderNumber)
-    #     print type(orderNumber)
-    print "orderNumber:", orderNumber
+    ordernumber = ''.join(ordernumber)
+    #     print type(ordernumber)
+    print "ordernumber:", ordernumber
     # 保存订单编号
-    # ws.write(j, i, orderNumber)
-    return orderNumber
+    # ws.write(j, i, ordernumber)
+    return ordernumber
