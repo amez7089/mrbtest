@@ -16,6 +16,7 @@ try:
     cursor.execute(sql)
     # 获取所有记录列表
     results = cursor.fetchall()
+    print results
     if results.commit() == 0:
         print "查询结果为空"
     else:
