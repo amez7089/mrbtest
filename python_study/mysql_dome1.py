@@ -10,21 +10,21 @@ db = MySQLdb.connect("192.168.18.128", "root", "123456",'myfirstdata', charset='
 cursor = db.cursor()
 
 # SQL 查询语句
-sql = "SELECT * FROM member_card WHERE member_id= 9"
+sql = "SELECT * FROM member_card WHERE member_id= 222"
 try:
     # 执行SQL语句
     cursor.execute(sql)
     # 获取所有记录列表
     results = cursor.fetchall()
     print results
-    if results.commit() == 0:
-        print "查询结果为空"
-    else:
+    if results:
         for row in results:
             card_no = row[1]
             card_pwd = row[2]
             # 打印结果
-        print "card_no=%s,card_pwd=%s" % (card_no, card_pwd)
+            print "card_no=%s,card_pwd=%s" % (card_no, card_pwd)
+    else:
+        print "查询结果为空"
 except Exception, e:
     # 发生错误时回滚
     print "Error to update:", e
