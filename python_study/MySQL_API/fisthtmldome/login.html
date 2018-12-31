@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head><title>修改会员性别</title>
+<head>
+<title>login.html</title>
 <meta charset="utf-8">
 </head>
 
-修改员工性别
+<！-- 待补充的javaScript Ajax请求代码 在下面 --！>
 
 <body>
     <form action="#">
-        请输入需要修改会员ID:<input type="text" name="member_id"><br>
+        username:<input type="text" name="username"><br>
+        password:<input type="password" name="password"><br>
         <input type="button" value="submit" id="submit">
     </form>
 </body>
@@ -17,8 +19,8 @@
 <script type="text/javascript">
     $(function(){
         $("#submit").click(function(){
-        var url = "http://localhost:5000/cut/json/";
-        var params = {"content":$("input[type='text']").val()};
+        var url = "/myblog/servlet/loginServlet";
+        var params = {"username":$("input[type='text']").val(), "password":$("input[type='password']").val()};
 
         $.ajax({
                 "url" : url,

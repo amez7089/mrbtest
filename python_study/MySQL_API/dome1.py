@@ -9,22 +9,31 @@ import json
 toy = Flask(__name__)
 
 
-def cut(content):
-    word_list = jieba.lcut(content)
+def cut(memberid):
+    word_list = jieba.lcut(memberid)
     word_num = len(word_list)
     word_str = ",".join(word_list)
     return word_str, word_num
+@toy.route("/")
+def hello_world():
+    return "Hello World!"
 
 
-@toy.route("/cut/para/<string:content>")
-def paraCut(content):
-    # word_str, word_num = cut(content)
-    result = member_sex(content)
+@toy.route("/cut/para/<string:memberid>")
+def paraCut(memberid):
+    # word_str, word_num = cut(memberid)
+    result = member_sex(memberid)
     print result
-    if result == 200:
-        return "修改会员{}性别成功".format(content)
+    if result == 201:
+        data = {"code": result, "message": "将会员{}性别修改成男性".format(memberid)}
+        return json.dumps(data, ensure_ascii=False)  # 将data序列化为json类型的str
+    elif result == 202:
+        data = {"code": result, "message": "将会员{}性别修改成女性".format(memberid)}
+        return json.dumps(data, ensure_ascii=False)  # 将data序列化为json类型的str
     else:
-        return "修改会员性别失败"
+        data = {"state": result, "body": '修改会员性别失败'}
+        return json.dumps(data, ensure_ascii=False)
+        # 将结果格式化为dict
 
 
 @toy.route("/cut/json/", methods=["POST"])  # methods可以是多个
@@ -32,15 +41,18 @@ def jsonCut():
     if request.method == "POST":
         # 从request请求中提取json内容
         json_dict = request.get_json()
-        content = json_dict["content"]
+        memberid = json_dict["memberid"]
         # 运行业务逻辑
-        result = member_sex(content)
+        result = member_sex(memberid)
         # print result
-        if result == 200:
-            data = {"state": result, "body": "修改会员成功"}
+        if result == 201:
+            data = {"code": result, "message": "将会员{}性别修改成男性".format(memberid)}
+            return json.dumps(data, ensure_ascii=False)  # 将data序列化为json类型的str
+        elif result == 202:
+            data = {"code": result, "message": "将会员{}性别修改成女性".format(memberid)}
             return json.dumps(data, ensure_ascii=False)  # 将data序列化为json类型的str
         else:
-            data = {"state": result, "body": '修改会员失败'}
+            data = {"state": result, "body": '修改会员性别失败'}
             return json.dumps(data, ensure_ascii=False)
             # 将结果格式化为dict
 
@@ -52,7 +64,7 @@ def jsonCut():
 
 def member_sex(member_id):
     # 打开数据库连接
-    db = MySQLdb.connect("192.168.18.128", "root", "123456", 'myfirstdata', charset='utf8')
+    db = MySQLdb.connect("172.16.20.115", "root", "123456", 'myfirstdata', charset='utf8')
 
     # 使用cursor()方法获取操作游标
     cursor = db.cursor()
@@ -75,9 +87,10 @@ def member_sex(member_id):
                 print sex
                 if sex == 1:
                     cursor.execute(sql2)
+                    return 201
                 else:
                     cursor.execute(sql)
-            return 200
+                    return 202
         else:
             return 404
 
@@ -92,4 +105,4 @@ def member_sex(member_id):
 
 
 if __name__ == "__main__":
-    toy.run(debug=True)
+    toy.run(port=5000,debug=True)

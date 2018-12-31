@@ -5,7 +5,7 @@ import unittest
 import HTMLTestRunnerCN
 def Suite():
     testunit=unittest.TestSuite()
-    test_dir = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect"
+    test_dir = "E:\\PythonProject\\mrbtest\\mrbtest\\mrb_automation_test\\api_automation\\api_automation_perfect"
     discover=unittest.defaultTestLoader.discover(test_dir,pattern='mrb_api_perfect.py',top_level_dir=None)
     for test_suite in discover:
         for test_case in test_suite:
@@ -15,7 +15,7 @@ def Suite():
 
 if __name__=="__main__":
     #测试报告的存放路径
-    test_report = "E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect"
+    test_report = "E:\\PythonProject\\mrbtest\\mrbtest\\mrb_automation_test\\api_automation\\api_automation_perfect"
     #按照一定的格式获取当前的时间
     now = time.strftime("%Y-%m-%d_%H-%M-%S")
     #定义报告存放路径

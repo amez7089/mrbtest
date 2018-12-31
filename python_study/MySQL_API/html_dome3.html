@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>美容邦后台管理系统</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<div style="margin: 10px;">
+    <label>输入数据</label>
+    <input type="text"id="txtBefore"style="width: 200px;"/>
+    <input type="button"id="btnRefresh"value="将数据传到后台">
+</div>
+<div style="margin: 10px;color: red;">
+    <label>后台返回结果：</label>
+    <div id="resultDiv"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $("#btnRefresh").click(function(){
+        $.ajax({
+            type : "POST",
+            url : "/cut/json/",
+            dataType: "text",
+            data:{str:$("#txtBefore").val()},
+            cache:false,
+            success:function (data) {
+                $("#resultDiv").html(data);
+            },
+            error:function () {
+            }
+            });
+        });
+    });
+</script>

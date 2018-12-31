@@ -18,7 +18,9 @@ import traceback
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # 打开用例文件，读取对应用例的用户名等数据
-casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect\\mrb_api_perfect.xls', formatting_info=True)
+casefile = xlrd.open_workbook(
+    'E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect\\test.xls',
+    formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
 style1.num_format_str = 'YYYY-MM-DD HH:MM:SS'
@@ -42,14 +44,14 @@ class mrb_api_test(unittest.TestCase):
 
     def test_mrb_api(self):
         i = 1
-        No=u'開始'
+        No = u'開始'
         while No != u'完':
 
             try:
                 # errorFlag = 0
-                way=table.cell(i, 5).value
+                way = table.cell(i, 5).value
                 print way
-                if way==u'post':
+                if way == u'post':
                     # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
                     url = table.cell(i, 4).value
                     print url
@@ -59,10 +61,10 @@ class mrb_api_test(unittest.TestCase):
                     data = json.loads(table.cell(i, 6).value)
                     # print data
                     # 发送POST请求给接口：
-                    r = requests.post(url=url, json=data,headers=headers)
+                    r = requests.post(url=url, json=data, headers=headers)
                     result = r.json()
                     print result
-                elif way==u'get':
+                elif way == u'get':
                     # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
                     url = table.cell(i, 4).value
                     print url
@@ -72,10 +74,10 @@ class mrb_api_test(unittest.TestCase):
                     data = json.loads(table.cell(i, 6).value)
                     print data
                     # 发送get请求给接口：
-                    r = requests.get(url=url,json=data,headers=headers)
+                    r = requests.get(url=url, json=data, headers=headers)
                     result = r.json()
                     print result
-                elif way==u'delete':
+                elif way == u'delete':
                     # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
                     url = table.cell(i, 4).value
                     print url
@@ -85,11 +87,11 @@ class mrb_api_test(unittest.TestCase):
                     data = json.loads(table.cell(i, 6).value)
                     print data
                     # 发送delete请求给接口：
-                    r = requests.delete(url=url,json=data,headers=headers)
+                    r = requests.delete(url=url, json=data, headers=headers)
                     # return r.json
                     result = r.json()
                     print result
-                elif way==u'put':
+                elif way == u'put':
                     # 读取用例文件中的接口URL，用例文件中此用例在第2行第4列（行列都从0开始计数）
                     url = table.cell(i, 4).value
                     print url
@@ -99,7 +101,7 @@ class mrb_api_test(unittest.TestCase):
                     data = json.loads(table.cell(i, 6).value)
                     print data
                     # 发送put请求给接口：
-                    r = requests.put(url=url,json=data,headers=headers)
+                    r = requests.put(url=url, json=data, headers=headers)
                     # return r.json
                     result = r.json()
                     print result
@@ -142,8 +144,8 @@ class mrb_api_test(unittest.TestCase):
                     print i
                     continue
                 # 判断响应消息中是否符合接口设计时的预期：
-                Expect_code=int(table.cell(i, 7).value)
-                if ( int(result['code']) == Expect_code):
+                Expect_code = int(table.cell(i, 7).value)
+                if (int(result['code']) == Expect_code):
                     # print result['message']
                     print 'Case Pass!'
                     # 将响应数据中的CODE写入用例文件中
@@ -161,29 +163,29 @@ class mrb_api_test(unittest.TestCase):
                     # 将执行失败结果写入用例文件中
                     ws.write(i, 10, 'Fail', style2)
                 ws.write(i, 11, 'zhouchuqi')
-                ws.write(i, 12, datetime.now(), style1) 
+                ws.write(i, 12, datetime.now(), style1)
             except Exception as e:
                 print('请求出错,原因:%s' % e)
                 traceback.format_exc()
                 # 写入异常至用例文件中：
                 errorInfo = str(traceback.format_exc())
                 print "****errorInfo:", errorInfo
-                ws.write(i, 9,u'脚本执行失败', style2)
+                ws.write(i, 9, u'脚本执行失败', style2)
                 ws.write(i, 10, 'Failed', style2)
                 ws.write(i, 11, 'zhouchuqi')
                 ws.write(i, 12, datetime.now(), style1)
                 ws.write(i, 13, errorInfo, style2)
-            i=i+1
+            i = i + 1
             No = table.cell(i, 2).value
             print No
-
-
 
     def tearDown(self):
         #           self.driver.quit()
         # 利用保存时同名覆盖达到修改excel文件的目的,注意未被修改的内容保持不变
-        wb.save('E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect\\mrb_api_perfect.xls')
+        wb.save(
+            'E:\\gitworksqace\\mrbdome1\\test1\\mrb_automation_test\\api_automation\\api_automation_perfect\\test.xls')
         print("tearDown")
+
 
 if __name__ == '__main__':
     unittest.main()
@@ -205,4 +207,3 @@ if __name__ == '__main__':
     # runner.run(suite)
     # #关闭报告文件
     # fp.close()
-
