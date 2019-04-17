@@ -5,6 +5,10 @@ import MySQLdb
 import jieba
 from flask import Flask, request
 import json
+import time
+
+from flask import jsonify
+
 
 toy = Flask(__name__)
 
@@ -14,6 +18,8 @@ def cut(memberid):
     word_num = len(word_list)
     word_str = ",".join(word_list)
     return word_str, word_num
+
+
 @toy.route("/")
 def hello_world():
     return "Hello World!"
@@ -34,6 +40,52 @@ def paraCut(memberid):
         data = {"state": result, "body": '修改会员性别失败'}
         return json.dumps(data, ensure_ascii=False)
         # 将结果格式化为dict
+
+
+@toy.route('/member/queryById/<string:memberid>')
+def queryById(memberid):
+    result, code = member_name(memberid)
+    print result, code
+    if code == 200:
+        data = {"code": code, "message": "接口调用成功", "name": result}
+        return json.dumps(data, ensure_ascii=False)
+    else:
+        data = {"code": code, "message": "会员不存在"}
+        return json.dumps(data, ensure_ascii=False)
+
+
+@toy.route('/member/information/<int:memberid>')
+def information(memberid):
+    result, code = Membership_information(memberid)
+    print result
+    print code
+    # re = {'memberid': result[0], 'name': result[1], 'member_mobile': result[2], 'address': result[3], 'sex': result[4],
+    #       'is_marry': result[5]}
+    # print re  timeStamp = int(time.mktime(timeArray))
+    if code == 200:
+        re = {'memberid': result[0], 'name': result[1], 'member_mobile': result[2], 'address': result[3],
+              'sex': result[4], 'is_marry': result[5]}
+        print re
+        t = {}
+        for num in range(1, 5):
+            t[str(num)] = re
+        data = {}
+        data['success'] = 'success'
+        data['data'] = t
+        return jsonify(data)
+        """
+        a=str(result[7])
+        # timeArray = time.strptime(a, "%Y-%m-%d %H:%M:%S")
+        # timeStamp = int(time.mktime(timeArray))
+        # print a,timeStamp
+        data = {'memberid': result[0], 'name': result[1], 'member_mobile': result[2], 'address': result[3],
+              'sex': result[4], 'is_marry': result[5],'uptime':a}
+        data = {"code": code, "message": "接口调用成功", "data": data}
+        return json.dumps(data, ensure_ascii=False)
+        """
+    else:
+        data = {"code": code, "message": "会员不存在"}
+        return json.dumps(data, ensure_ascii=False)
 
 
 @toy.route("/cut/json/", methods=["POST"])  # methods可以是多个
@@ -104,5 +156,76 @@ def member_sex(member_id):
     db.close()
 
 
+def member_name(member_id):
+    # 打开数据库连接
+    db = MySQLdb.connect("172.16.20.115", "root", "123456", 'myfirstdata', charset='utf8')
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 更新语句
+    sql = "SELECT * FROM member where member_id=%s" % member_id
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+        results = cursor.fetchall()
+        if results:
+            for results in results:
+                name = results[1]
+                code = 200
+            return name, code
+        else:
+            code = 404
+            name = "会员不存在"
+            return name, code
+
+
+    except:
+        # 发生错误时回滚
+        db.rollback()
+        code = 500
+        return code
+
+    # 关闭数据库连接
+    db.close()
+
+
+def Membership_information(member_id):
+    # 打开数据库连接
+    db = MySQLdb.connect("172.16.20.115", "root", "123456", 'myfirstdata', charset='utf8')
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 更新语句
+    sql = "SELECT * FROM member_card where member_id=%s" % member_id
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+        results = cursor.fetchall()
+        if results:
+            for results in results:
+                code = 200
+                return results, code
+        else:
+            code = 404
+            name = "会员不存在"
+            return name, code
+
+
+    except:
+        # 发生错误时回滚
+        db.rollback()
+        code = 500
+        return code
+
+    # 关闭数据库连接
+    db.close()
+
+
 if __name__ == "__main__":
-    toy.run(port=5000,debug=True)
+    toy.run(port=5000, debug=True)

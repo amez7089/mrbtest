@@ -29,7 +29,7 @@ def generata_random_title():
     for i in range(4):
         random_str += base_str[random.randint(0, length)]
     title = "自动化课程%s" % random_str
-    print title
+    # print title
     return title
 
 ti=str(generata_random_title())
