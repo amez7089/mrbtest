@@ -4,13 +4,13 @@
 import MySQLdb
 
 # 打开数据库连接
-db = MySQLdb.connect("192.168.18.128", "root", "123456",'myfirstdata', charset='utf8')
+db = MySQLdb.connect("172.16.20.115", "root", "123456", 'myfirstdata', charset='utf8')
 
 # 使用cursor()方法获取操作游标
 cursor = db.cursor()
 
 # SQL 查询语句
-sql = "SELECT * FROM member_card WHERE member_id= 222"
+sql = "SELECT * FROM member_card WHERE member_id= 12"
 try:
     # 执行SQL语句
     cursor.execute(sql)
