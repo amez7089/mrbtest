@@ -19,7 +19,7 @@ def open_homepage(browse, url):
 
 # 账号密码登陆并判断是否登陆成功
 def get_user_login(browse, name, pwd):
-    browse.get('http://web.test.amyun.cn/')
+    browse.get('https://www.amez999.com/')
     browse.find_element_by_xpath('//*[@id="app"]/div[1]/div/ul/li[1]').click()
     time.sleep(2)
     browse.find_element_by_xpath('//*[@id="am_content"]/div/div[2]/div/div[2]/div[2]/div[1]/input').send_keys(
