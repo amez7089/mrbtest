@@ -17,7 +17,7 @@ from cgitb import text
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-# 打开用例文件，读取对应用例的用户名等数据
+# 打开用例文件，读取对应用例的用户名等数据s
 casefile = xlrd.open_workbook('E:\\gitworksqace\\mrbdome1\\test1\\amez_test\\UITestData.xls', formatting_info=True)
 # 设置日期格式
 style1 = xlwt.XFStyle()
